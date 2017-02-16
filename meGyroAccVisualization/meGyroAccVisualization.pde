@@ -2,37 +2,52 @@ import processing.serial.*;
 
 Serial port;
 String stream;
-String[] values;
 int[][] intValues;
+int minValue = 0;
+int maxValue = 100;
+int scale = 10;
+int dif;
+float ratio;
 
 void setup() {
   String portName = Serial.list()[0];
   port = new Serial(this, portName, 9600);
   intValues = new int[10][3];
+  dif = maxValue - minValue;
+  ratio = scale / dif;
 }
 
 void draw() {
   if ( port.available() > 0) {
-    updateData(port);
+    intValues = updateData(port);
   } 
   
-  /** TODO
-  * Visualize three data sets
-  */
-  
+  drawData(intValues);
 }
 
-void updateData (Serial port) {
+int[][] updateData(Serial port) {
   stream = port.readStringUntil('\n');             
-  values = stream.split(","); 
+  String[] values = stream.split(","); 
+  
+  int[][] iValues = new int[10][values.length];
     
-  for (int i = 8;i>=0;i--) {
-    intValues[i+1][0] = intValues[i][0];
-    intValues[i+1][1] = intValues[i][1];
-    intValues[i+1][2] = intValues[i][2];
+  for (int i = 8; i >= 0; i--) {
+    for (int j = 0; j < values.length; j++) {
+      iValues[i+1][j] = iValues[i][j];
+    }  
   }
     
-  intValues[0][0] = int(values[0]);
-  intValues[0][1] = int(values[1]);
-  intValues[0][2] = int(values[2]);
+  for (int k = 0; k < values.length; k++) {
+    iValues[0][k] = int(values[k]);
+  }  
+  
+  return iValues;
+}
+
+void drawData (int[][] iValues) {
+  for (int i = 0; i < iValues.length-1; i--) {
+    for (int j = 0; j < iValues[i].length; j++) {
+      line(j*scale+(iValues[i][j]*ratio),i*scale,j*scale+(iValues[i+1][j]*ratio),(i+1)*scale);
+    }  
+  }
 }
