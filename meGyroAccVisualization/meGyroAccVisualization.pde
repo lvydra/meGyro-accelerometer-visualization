@@ -15,7 +15,7 @@ void setup() {
   
   //String portName = Serial.list()[1];
   
-  String portName = "COM5"; //change the 0 to a 1 or 2 etc. to match your port
+  String portName = "COM5";
   port = new Serial(this, portName, 115200);
   
   intValues = new int[10][3];
@@ -40,7 +40,7 @@ int[][] updateData(String stream) {
   println(stream);
   String[] values = stream.split(","); 
   println(values);
-  int[][] iValues = intValues;//new int[10][values.length];
+  int[][] iValues = intValues;
     
   for (int i = 8; i >= 0; i--) {
     for (int j = 0; j < values.length; j++) {
