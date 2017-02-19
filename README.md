@@ -1,2 +1,2 @@
 # meGyroAccVis
-Visualization of meGyro acc output
+Visualization of meGyro accelerometer output
