@@ -3,9 +3,9 @@ import processing.serial.*;
 Serial port;
 String stream;
 int[][] intValues;
-int minValue = -35000;
-int maxValue = 35000;
-int scale = 100;
+int minValue = -32768;
+int maxValue = 32767;
+int scale = 200;
 int dif;
 float ratio;
 
@@ -20,7 +20,7 @@ void setup() {
   
   intValues = new int[10][3];
   dif = maxValue - minValue;
-  ratio = scale / dif;
+  ratio = dif / scale;
 }
 
 void draw() {
@@ -63,9 +63,9 @@ void drawData (int[][] iValues) {
   
   for (int i = 0; i < iValues.length-1; i++) {
     for (int j = 0; j < iValues[0].length; j++) {
-      float x1 = (j+1)*scale+(iValues[i][j]/100);     
+      float x1 = (j+1)*scale+(iValues[i][j]/ratio);     
       float y1 = i*scale;
-      float x2 = (j+1)*scale+(iValues[i+1][j]/100);
+      float x2 = (j+1)*scale+(iValues[i+1][j]/ratio);
       float y2 = (i+1)*scale;
       
       println("i: " + i + " j: " + j);
