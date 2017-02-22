@@ -81,7 +81,7 @@ int[][] updateData(String stream) {
 }
 
 void drawData (int[][] iValues) {
-  stroke(255, 204, 0);
+  stroke(255, 0, 0);
   int step = width / intValues.length;
   
   for (int i = 0; i < iValues.length-1; i++) {
@@ -96,6 +96,7 @@ void drawData (int[][] iValues) {
       line(x1,y1,x2,y2);
     }  
   }
+  stroke(10);
 }
 
 void dashline(float x0, float y0, float x1, float y1, float[ ] spacing) { 
