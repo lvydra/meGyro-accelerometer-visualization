@@ -6,12 +6,12 @@ int[][] intValues;
 int minValue = -32768;
 int maxValue = 32767;
 int scale = 200;
+int gridStep = 20;
 int dif;
 float ratio;
 
 void setup() {
   size(1000, 600);
-  //color(0,0,0);
   stroke(10);
   
   //String portName = Serial.list()[1];
@@ -26,7 +26,7 @@ void setup() {
 
 void draw() {
   background(255);
-  grid(scale);
+  grid(scale, gridStep);
   
   if ( port.available() > 0) {
     stream = port.readStringUntil('\n');
@@ -37,16 +37,14 @@ void draw() {
   drawData(intValues);
 }
 
-void grid(int scale) {
-  int step = 20;
+void grid(int scale, int step) {
   float[] dashes = { 5, 3};
   
-  color(220,220,220);
-  for (int i = 1; i < 30; i++) {
+  for (int i = 1; i < (3*scale)/step; i++) {
     dashline(0,step*i,width,step*i,dashes);
   }
   
-  for (int i = 1; i < 50; i++) {
+  for (int i = 1; i < width/step; i++) {
     dashline(step*i,0,step*i,height,dashes);
   }
   
@@ -59,8 +57,8 @@ void grid(int scale) {
 
 int[][] updateData(String stream) {
   println(stream);
+  
   String[] values = stream.split(","); 
-  println(values);
   int[][] iValues = intValues;
     
   for (int i = iValues.length - 2; i >= 0; i--) {
@@ -73,6 +71,7 @@ int[][] updateData(String stream) {
     iValues[0][k] = int(values[k]);
   }  
   
+  println(values);
   for (int i = 0; i < iValues.length; i++) {
     println(iValues[i]);
   }
@@ -86,13 +85,14 @@ void drawData (int[][] iValues) {
   
   for (int i = 0; i < iValues.length-1; i++) {
     for (int j = 0; j < iValues[0].length; j++) {
-      float y1 = (j+1)*scale+(iValues[i][j]/ratio);     
+      float y1 = ((j+1)*scale)-(scale/2)+(iValues[i][j]/ratio);     
       float x1 = i*step;
-      float y2 = (j+1)*scale+(iValues[i+1][j]/ratio);
+      float y2 = ((j+1)*scale)-(scale/2)+(iValues[i+1][j]/ratio);
       float x2 = (i+1)*step;
       
       println("i: " + i + " j: " + j);
       println("x1: " + x1 + " y1: " + y1 + " x2: " + x2 + " y2: " + y2);
+      
       line(x1,y1,x2,y2);
     }  
   }
