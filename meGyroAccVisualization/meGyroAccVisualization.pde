@@ -56,9 +56,11 @@ void grid(int scale, int step) {
 }
 
 int[][] updateData(String stream) {
-  println(stream);
+  //println(stream);
   
   String[] values = stream.split(","); 
+  //println(values);
+  
   int[][] iValues = intValues;
     
   for (int i = iValues.length - 2; i >= 0; i--) {
@@ -68,13 +70,13 @@ int[][] updateData(String stream) {
   }
     
   for (int k = 0; k < values.length; k++) {
-    iValues[0][k] = int(values[k]);
+    String trimedValue = trim(values[k]);
+    iValues[0][k] = int(trimedValue);
   }  
   
-  println(values);
-  for (int i = 0; i < iValues.length; i++) {
-    println(iValues[i]);
-  }
+  //for (int i = 0; i < iValues.length; i++) {
+  //  println(iValues[i]);
+  //}
   
   return iValues;
 }
@@ -90,8 +92,8 @@ void drawData (int[][] iValues) {
       float y2 = ((j+1)*scale)-(scale/2)+(iValues[i+1][j]/ratio);
       float x2 = (i+1)*step;
       
-      println("i: " + i + " j: " + j);
-      println("x1: " + x1 + " y1: " + y1 + " x2: " + x2 + " y2: " + y2);
+      //println("i: " + i + " j: " + j);
+      //println("x1: " + x1 + " y1: " + y1 + " x2: " + x2 + " y2: " + y2);
       
       line(x1,y1,x2,y2);
     }  
