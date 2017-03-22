@@ -22,3 +22,10 @@ void loop(){
   delay(40);
 }
 
+int magnitude (int x, int y, int z){
+  int magnitude = 0;
+  //TODO
+  
+  return magnitude;
+}
+
