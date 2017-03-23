@@ -23,9 +23,9 @@ void loop(){
 }
 
 int magnitude (int x, int y, int z){
-  int magnitude = 0;
-  //TODO
+  double magnitude = 0;
+  magnitude = sqrt(sq(x) + sq(y) + sq(z)); 
   
-  return magnitude;
+  return (int) magnitude;
 }
 
