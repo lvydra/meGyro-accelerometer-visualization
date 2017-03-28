@@ -19,7 +19,7 @@ void setup() {
   String portName = "COM5";
   port = new Serial(this, portName, 115200);
   
-  intValues = new int[100][3];
+  intValues = new int[100][4];
   dif = maxValue - minValue;
   ratio = dif / scale;
 }
