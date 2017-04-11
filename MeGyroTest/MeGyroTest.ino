@@ -16,16 +16,18 @@ void loop(){
   Serial.print(",");
   Serial.print(gyro.getAccY());
   Serial.print(",");
-  Serial.println(gyro.getAccZ());
+  Serial.print(gyro.getAccZ());
+  Serial.print(",");
+  Serial.println(magnitude(gyro.getAccX(), gyro.getAccY(), gyro.getAccZ()));
 
   Serial.setTimeout(50);
   delay(40);
 }
 
-int magnitude (int x, int y, int z){
-  double magnitude = 0;
+long magnitude (int x, int y, int z){
+  long magnitude = 0;
   magnitude = sqrt(sq(x) + sq(y) + sq(z)); 
   
-  return (int) magnitude;
+  return magnitude;
 }
 
