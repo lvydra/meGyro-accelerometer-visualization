@@ -16,7 +16,7 @@ void setup() {
   
   //String portName = Serial.list()[1];
   
-  String portName = "COM5";
+  String portName = "COM3";
   port = new Serial(this, portName, 115200);
   
   intValues = new int[100][4];
@@ -56,7 +56,7 @@ void grid(int scale, int step) {
 }
 
 int[][] updateData(String stream) {
-  //println(stream);
+  println(stream);
   
   String[] values = stream.split(","); 
   //println(values);
@@ -85,8 +85,9 @@ void drawData (int[][] iValues) {
   stroke(255, 0, 0);
   int step = width / intValues.length;
   
-  for (int i = 0; i < iValues.length-1; i++) {
-    for (int j = 0; j < iValues[0].length; j++) {
+  //ignore magnitude -1
+  for (int i = 0; i < iValues.length-2; i++) {
+    for (int j = 0; j < iValues[0].length-1; j++) {
       float y1 = ((j+1)*scale)-(scale/2)+(iValues[i][j]/ratio);     
       float x1 = i*step;
       float y2 = ((j+1)*scale)-(scale/2)+(iValues[i+1][j]/ratio);
